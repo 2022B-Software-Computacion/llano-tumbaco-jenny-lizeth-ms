@@ -98,7 +98,50 @@ fun main(){
     val respuestaMapDos = arregloDinammico.map{it+15}
     println(respuestaMapDos)
 
+    //Filter -> Filtrar el arreglo
+    //1) devolver una expresión (true o false)
+    //2) nuevo arreglo filtrado
+    val respuestaFilter: List<Int> = arregloDinammico
+        .filter { valorActual: Int ->
+            val mayoresACinco: Boolean=valorActual >5 //Expresión condición
+            return@filter mayoresACinco
+        }
+    val respuestaFilterDos = arregloDinammico.filter { it <= 5 }
+    println(respuestaFilter)
+    println(respuestaFilterDos)
+
+    //OR AND
+    //OR -> ANY(alguno cumple?)
+    //AND -> ALL(Todos cumplen?)
+    val respuestaAny:Boolean = arregloDinammico
+        .any{valorActual:Int ->
+            return@any (valorActual>5)
+        }
+    println(respuestaAny )//true
+
+    val respuestaAll: Boolean=arregloDinammico
+        .all{ valorActual:Int ->
+            return@all (valorActual>5)
+        }
+    println(respuestaAll)
+
+    //Reduce -> valor acumulado
+    //valor acumulado = 0 (Siempre 0 en lenguaje Kotlin)
+    //[1,2,3,4,5] -> sumeme todos los valores dela rreglo
+    //valoriteración1 = valorEmpieza +1=0+1=1 -> iteración1
+    //valoriteración2 = valorIteración1 + 2 = 1+2=3->iteración2
+
+    val respuestaReduce: Int =arregloDinammico
+        .reduce{ //acumulado = 0 siempre empieza en 0
+            acumulado:Int, valorActual: Int->
+            return@reduce (acumulado+valorActual)// ->lógica negocio
+        }
+    println(respuestaReduce) //78
+
+
+
 }
+
 
 //voidd == Unit
 fun imprimitNombre(nombre:String): Unit {
