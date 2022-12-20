@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="Hola_Mundo">lholaMundo portrait español</string>
+    <color name="background">#FFBBAACD</color>
+    <color name="text">#FFEE7B91</color>
 </resources>
