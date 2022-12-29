@@ -1,6 +1,10 @@
+import java.io.File
+import java.io.InputStream
+import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.io.*
-import kotlin.collections.ArrayList
+import java.util.*
+
+
 fun main() {
     do {
         println("*********************Menú*********************")
@@ -14,6 +18,7 @@ fun main() {
 
         val opcion = readln().toInt()
         var listaSupermercados = leerArchivo()
+
         when (opcion) {
             1 -> {//Crear
                 val miSupermercado = Supermercado()
@@ -37,31 +42,7 @@ fun main() {
                 println("Nombre del supermercado: ")
                 val nombreSuper = readln()
                 var auxSuperm = Supermercado()
-
-                val indiceSuper = auxSuperm.buscarSupermercado(listaSupermercados, nombreSuper)
-                auxSuperm = listaSupermercados[indiceSuper]
-                val info: MutableMap<String, String> = mutableMapOf("nombre" to auxSuperm.nombre,
-                    "#Productos" to auxSuperm.cantidadProductos.toString(), "Fecha de apertura" to auxSuperm.fechaApertura.toString(),
-                    "Aceptación de cheques" to auxSuperm.aceptaCheques.toString(), " Horas de apertura" to auxSuperm.horasAlDiaAbierto.toString())
-
-                println("¿Qué información quieres cambiar?: ")
-                var auxCont = 0
-                info.forEach{
-                    (k, v) ->
-                    auxCont = auxCont+1
-                    println("   $auxCont. $k : $v")
-                }
-                val eleccion = readln().toInt()
-
-                println("Escribe el nuevo valor: ")
-                val newInfo = readln()
-                when(eleccion){
-                    2->{listaSupermercados[indiceSuper].cantidadProductos=newInfo.toInt()}
-                    3->{listaSupermercados[indiceSuper].fechaApertura=LocalDate.parse(newInfo)}
-                    4->{listaSupermercados[indiceSuper].aceptaCheques=newInfo.toBoolean()}
-                    5->{listaSupermercados[indiceSuper].horasAlDiaAbierto=newInfo.toDouble()}
-                }
-
+                listaSupermercados = auxSuperm.actualizarSupermercado(listaSupermercados, nombreSuper)
                 escribirArchivo(listaSupermercados)
                 println("¡Información actualizada con EXITO!\n")
             }
@@ -71,7 +52,6 @@ fun main() {
                 val nombreSuper = readln()
                 var superProducto = Supermercado()
                 val indiceSuper = superProducto.buscarSupermercado(listaSupermercados, nombreSuper)
-                //val productos = listaSupermercados[indiceSuper].listaProductos
 
                 do{
                     println("\n----------Producto------------")
@@ -85,14 +65,13 @@ fun main() {
                     listaSupermercados = leerArchivo()
 
                     when(opcionP){
-                        7->{
+                        7->{ //crear
                             val miProducto = Producto()
                             miProducto.crearProducto()
-                            //productos.add(miProducto)
                             listaSupermercados[indiceSuper].listaProductos.add(miProducto)
                             escribirArchivo(listaSupermercados)
                         }
-                        8->{
+                        8->{ //mostar
                             println("***+Productos****")
                             var productos = listaSupermercados[indiceSuper].listaProductos
                             productos.forEach{
@@ -100,16 +79,37 @@ fun main() {
                                 println("nombre:" + p.nombre+"   #Productos:"+p.productosExistentes+"   Fecha de caducidad:"+p.fechaCaducidad+"   Hecho en Ecuador:"+p.estaHechoEnEcuador+"   Precio:"+p.precio)
                             }
                         }
-                        9->{
-
+                        9->{//actualizar
+                            println("Nombre del producto: ")
+                            val nombreProd = readln()
+                            var auxProd = Producto()
+                            listaSupermercados[indiceSuper].listaProductos = auxProd.actualizarProducto(listaSupermercados[indiceSuper].listaProductos, nombreProd)
+                            escribirArchivo(listaSupermercados)
+                            println("¡Información actualizada con EXITO!\n")
+                        }
+                        10->{//Borrar
+                            println("Nombre del producto: ")
+                            val nombreProd = readln()
+                            var auxProd = Producto()
+                            listaSupermercados[indiceSuper].listaProductos = auxProd.borrarProducto(listaSupermercados[indiceSuper].listaProductos, nombreProd)
+                            escribirArchivo(listaSupermercados)
+                            println("¡Producto eliminado con EXITO!\n")
                         }
                     }
 
                 }while (opcionP!=11)
             }
+            5->{
+                println("Nombre del supermercado: ")
+                val nombreSuper = readln()
+                var auxSuperm = Supermercado()
+                listaSupermercados = auxSuperm.borrarSupermercado(listaSupermercados, nombreSuper)
+                escribirArchivo(listaSupermercados)
+                println("¡Supermercado eliminado con EXITO!\n")
+            }
 
         }
-    } while (opcion != 9)
+    } while (opcion != 6)
 }
 
 fun escribirArchivo(texto:ArrayList<Supermercado>){
@@ -142,7 +142,7 @@ fun leerArchivo():ArrayList<Supermercado>{
             val s = Supermercado()
             s.nombre = tokens[2]
             s.cantidadProductos = tokens[4].toInt()
-            s.fechaApertura = LocalDate.parse(tokens[6])
+            s.fechaApertura = LocalDate.parse(tokens[4])
             s.aceptaCheques = tokens[8].toBoolean()
             s.horasAlDiaAbierto = tokens[10].toDouble()
             listaSupermercados.add(s)
@@ -165,7 +165,7 @@ fun leerArchivo():ArrayList<Supermercado>{
 class Supermercado{
     var nombre:String = ""
     var cantidadProductos: Int = 0
-    var fechaApertura = LocalDate.parse("2022-12-27")
+    var fechaApertura = LocalDate.parse("2022-12-12")
     var aceptaCheques: Boolean = false
     var horasAlDiaAbierto: Double = 9.5
     var listaProductos = arrayListOf<Producto>()
@@ -204,12 +204,48 @@ class Supermercado{
         }
         return indice
     }
+
+    fun actualizarSupermercado(listaSupers:ArrayList<Supermercado>, nombreSuper:String):ArrayList<Supermercado>{
+        var s = Supermercado()
+        val indiceSuper = s.buscarSupermercado(listaSupers, nombreSuper)
+        s = listaSupers[indiceSuper]
+        val info: MutableMap<String, String> = mutableMapOf("nombre" to s.nombre,
+            "#Productos" to s.cantidadProductos.toString(), "Fecha de apertura" to s.fechaApertura.toString(),
+            "Aceptación de cheques" to s.aceptaCheques.toString(), " Horas de apertura" to s.horasAlDiaAbierto.toString())
+
+        println("¿Qué información quieres cambiar?: ")
+        var auxCont = 0
+        info.forEach{
+                (k, v) ->
+            auxCont = auxCont+1
+            println("   $auxCont. $k : $v")
+        }
+        val eleccion = readln().toInt()
+
+        println("Escribe el nuevo valor: ")
+        val newInfo = readln()
+        when(eleccion){
+            2->{listaSupers[indiceSuper].cantidadProductos=newInfo.toInt()}
+            3->{listaSupers[indiceSuper].fechaApertura=LocalDate.parse(newInfo)}//LocalDate.parse(newInfo, DateTimeFormatter.ISO_DATE))}
+            4->{listaSupers[indiceSuper].aceptaCheques=newInfo.toBoolean()}
+            5->{listaSupers[indiceSuper].horasAlDiaAbierto=newInfo.toDouble()}
+        }
+        return listaSupers
+    }
+
+    fun borrarSupermercado(listaSupers:ArrayList<Supermercado>, nombreSuper:String):ArrayList<Supermercado>{
+        var s = Supermercado()
+        val indiceSuper = s.buscarSupermercado(listaSupers, nombreSuper)
+        listaSupers.removeAt(indiceSuper)
+
+        return listaSupers
+    }
 }
 
 class Producto{
     var nombre:String = ""
     var productosExistentes: Int = 0
-    var fechaCaducidad = LocalDate.parse("2022-12-27")
+    var fechaCaducidad = LocalDate.parse("2022-12-12")
     var estaHechoEnEcuador: Boolean = false
     var precio: Double = 0.0
 
@@ -235,8 +271,50 @@ class Producto{
         val h = readln().toDouble()
         this.precio = h
     }
-    fun mostrarProducto(){}
-    fun actualizarProducto(){}
-    fun borrarProducto(){}
+    fun buscarProducto(listaSuper:ArrayList<Producto>, nombreProdu:String):Int{
+        var indice = 0
+        listaSuper.forEach{
+                producto:Producto ->
+            if(producto.nombre.equals(nombreProdu)){
+                indice =  listaSuper.indexOf(producto)
+            }
+        }
+        return indice
+    }
+
+    fun actualizarProducto(listaProd:ArrayList<Producto>, nombreProd:String):ArrayList<Producto>{
+        var p = Producto()
+        val indiceProd = p.buscarProducto(listaProd, nombreProd)
+        p = listaProd[indiceProd]
+        val info: MutableMap<String, String> = mutableMapOf("nombre" to p.nombre,
+            "#Productos" to p.productosExistentes.toString(), "Fecha de caducidad" to p.fechaCaducidad.toString(),
+            "Hecho en Ecuador" to p.estaHechoEnEcuador.toString(), "Precio" to p.precio.toString())
+
+        println("¿Qué información quieres cambiar?: ")
+        var auxCont = 0
+        info.forEach{
+                (k, v) ->
+            auxCont = auxCont+1
+            println("   $auxCont. $k : $v")
+        }
+        val eleccion = readln().toInt()
+
+        println("Escribe el nuevo valor: ")
+        val newInfo = readln()
+        when(eleccion){
+            2->{listaProd[indiceProd].productosExistentes=newInfo.toInt()}
+            3->{listaProd[indiceProd].fechaCaducidad=LocalDate.parse(newInfo)}
+            4->{listaProd[indiceProd].estaHechoEnEcuador=newInfo.toBoolean()}
+            5->{listaProd[indiceProd].precio=newInfo.toDouble()}
+        }
+        return listaProd
+    }
+    fun borrarProducto(listaProd:ArrayList<Producto>, nombreProd:String):ArrayList<Producto>{
+        var p = Producto()
+        val indiceProd = p.buscarProducto(listaProd, nombreProd)
+        listaProd.removeAt(indiceProd)
+
+        return listaProd
+    }
 
 }
