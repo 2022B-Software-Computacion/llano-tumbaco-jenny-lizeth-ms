@@ -89,8 +89,8 @@ fun main(){
     //MAP -> Muta el arreglo (cambia el arreglo)
     //1)enviemos el nuevo valor de la iteración
     //2)nos devuelve es un nuevo arreglo con los valores modificados
-    val respuestaMap: List<Double> = arregloDinamico
-        .map{valorActuañ: Int ->
+    val respuestaMap: List<Double> = arregloDinammico
+        .map{valorActual: Int ->
             return@map valorActual.toDouble() + 100.00
         }
     println(respuestaMap)
@@ -199,6 +199,7 @@ class Suma(//constructor primario suma
     init{ //bloque constructor primario
         this.numeroUno
         this.numeroDos
+
     }
     constructor(//segundo constructor
         uno: Int?, //parametros
@@ -215,7 +216,7 @@ class Suma(//constructor primario suma
         if(dos ==null) 0 else uno
     ){}
     constructor(//cuarto constructor
-        uno: Int?, //parametros
+        uno: Int?, //parametrosl
         dos: Int? //parametro
     ):this( //llamada al constructor primario
         if(uno ==null) 0 else uno,

@@ -1,0 +1,5 @@
+Supermercado: nombre:Momo :#Productos:100 :Fecha de apertura:2022-12-03 :Acepta cheques:false :Horas abierto:4.2
+Productos: nombre:papa :#Productos:45 :Fecha de caducidad:2012-12-12 :Hecho en Ecuador:true :Precio:12.2
+Supermercado: nombre:lolis :#Productos:56 :Fecha de apertura:2012-12-25 :Acepta cheques:false :Horas abierto:10.25
+Productos: nombre:deja :#Productos:14 :Fecha de caducidad:2012-12-14 :Hecho en Ecuador:false :Precio:5.2
+Productos: nombre:aceite :#Productos:12 :Fecha de caducidad:2023-12-12 :Hecho en Ecuador:true :Precio:2.0
