@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".CintentExplicitoParametros">
 
+    <Button
+        android:id="@+id/btn_devolver_respuesta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DEVOLVER RESPUESTA"
+        tools:layout_editor_absoluteX="103dp"
+        tools:layout_editor_absoluteY="220dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

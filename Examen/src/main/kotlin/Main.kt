@@ -29,8 +29,8 @@ fun main() {
             2->{//Mostrar
                 listaSupermercados.forEach{
                     supermercado: Supermercado ->
-                    println("****Supermercado****")
-                    println("nombre:" + supermercado.nombre + "   #Productos:" + supermercado.cantidadProductos+"   Fecha de apertura:"+supermercado.fechaApertura+"   Acepta cheques:"+supermercado.aceptaCheques+"  Horas abierto:"+supermercado.horasAlDiaAbierto+"\n")
+                    println("\n****Supermercado****")
+                    println("nombre:" + supermercado.nombre + "   #Productos:" + supermercado.cantidadProductos+"   Fecha de apertura:"+supermercado.fechaApertura+"   Acepta cheques:"+supermercado.aceptaCheques+"  Horas abierto:"+supermercado.horasAlDiaAbierto)
                     println("***+Productos****")
                     supermercado.listaProductos.forEach{
                         producto: Producto ->
@@ -71,7 +71,7 @@ fun main() {
                             listaSupermercados[indiceSuper].listaProductos.add(miProducto)
                             escribirArchivo(listaSupermercados)
                         }
-                        8->{ //mostar
+                        8->{ //mostrar
                             println("***+Productos****")
                             var productos = listaSupermercados[indiceSuper].listaProductos
                             productos.forEach{
@@ -142,7 +142,7 @@ fun leerArchivo():ArrayList<Supermercado>{
             val s = Supermercado()
             s.nombre = tokens[2]
             s.cantidadProductos = tokens[4].toInt()
-            s.fechaApertura = LocalDate.parse(tokens[4])
+            s.fechaApertura = LocalDate.parse(tokens[6])
             s.aceptaCheques = tokens[8].toBoolean()
             s.horasAlDiaAbierto = tokens[10].toDouble()
             listaSupermercados.add(s)
@@ -225,9 +225,15 @@ class Supermercado{
         println("Escribe el nuevo valor: ")
         val newInfo = readln()
         when(eleccion){
+            1->{listaSupers[indiceSuper].nombre=newInfo}
             2->{listaSupers[indiceSuper].cantidadProductos=newInfo.toInt()}
             3->{listaSupers[indiceSuper].fechaApertura=LocalDate.parse(newInfo)}//LocalDate.parse(newInfo, DateTimeFormatter.ISO_DATE))}
-            4->{listaSupers[indiceSuper].aceptaCheques=newInfo.toBoolean()}
+            4->{if(newInfo.equals("Si")){
+                listaSupers[indiceSuper].aceptaCheques = true
+            }else {
+                (newInfo.equals("No"))
+                listaSupers[indiceSuper].aceptaCheques = false
+            }}
             5->{listaSupers[indiceSuper].horasAlDiaAbierto=newInfo.toDouble()}
         }
         return listaSupers
@@ -302,6 +308,7 @@ class Producto{
         println("Escribe el nuevo valor: ")
         val newInfo = readln()
         when(eleccion){
+            1->{listaProd[indiceProd].nombre=newInfo}
             2->{listaProd[indiceProd].productosExistentes=newInfo.toInt()}
             3->{listaProd[indiceProd].fechaCaducidad=LocalDate.parse(newInfo)}
             4->{listaProd[indiceProd].estaHechoEnEcuador=newInfo.toBoolean()}

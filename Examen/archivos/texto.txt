@@ -1,0 +1,3 @@
+Supermercado: nombre:Aki :#Productos:400 :Fecha de apertura:2018-10-22 :Acepta cheques:false :Horas abierto:10.6
+Productos: nombre:Aceite :#Productos:25 :Fecha de caducidad:2023-02-20 :Hecho en Ecuador:true :Precio:2.5
+Supermercado: nombre:Supermaxi :#Productos:500 :Fecha de apertura:2010-12-12 :Acepta cheques:true :Horas abierto:10.8
