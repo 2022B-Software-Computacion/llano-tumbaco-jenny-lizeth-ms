@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "645775222500",
+    "project_id": "b-s-ltjl",
+    "storage_bucket": "b-s-ltjl.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645775222500:android:7cd974dbdb37495cab6ef1",
+        "android_client_info": {
+          "package_name": "com.example.ltjlapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "645775222500-i2mrdh7gpvnb1k0uvl7rmtlbrphs1nkn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG8nAOVT3q5eB7_osrLBK9SdQZpOfSpWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "645775222500-i2mrdh7gpvnb1k0uvl7rmtlbrphs1nkn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

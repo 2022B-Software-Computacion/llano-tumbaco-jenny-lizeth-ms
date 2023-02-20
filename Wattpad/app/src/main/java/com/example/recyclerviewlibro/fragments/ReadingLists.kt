@@ -1,59 +1,80 @@
-package com.example.recyclerviewlibro
+package com.example.recyclerviewlibro.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import com.example.recyclerviewlibro.R
+import com.example.recyclerviewlibro.adaptador.LecturasAdapter
+import com.example.recyclerviewlibro.clases.Lecturas
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import android.widget.Button
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.recyclerviewlibro.clases.Libro
 
 /**
- * A simple [Fragment] subclass.
- * Use the [ReadingLists.newInstance] factory method to
- * create an instance of this fragment.
+ * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class ReadingLists : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class ReadingLists : Fragment(){
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View?{
+        val vista = inflater.inflate(R.layout.fragment_reading_lists, container, false)
+        val listaLibro = arrayListOf<Libro>()
+        listaLibro
+            .add(Libro(1,"!!Simplemente un contrato¡¡","450k","12.4M","43","Quiero agradecer a cada una de ustedes porque a pesar de malos comentarios ustedes comentaron pequelas ccosas",R.drawable.simplemente_un_contrato))
+
+        //definir lista
+        val listaLectura = arrayListOf<Lecturas>()
+        listaLectura
+            .add(Lecturas(1,"Lista de lectura de Terror","2 stories",R.drawable.terror,"Quiero agradecer a cada una de ustedes porque a pesar de malos comentarios ustedes comentaron pequelas ccosas",listaLibro))
+        listaLectura
+            .add(Lecturas(2,"Lista de lectura de Amor","7 stories",R.drawable.amor, "Quiero agradecer a cada una de ustedes porque a pesar de malos comentarios ustedes comentaron pequelas ccosas",listaLibro))
+        listaLectura
+            .add(Lecturas(3,"Lista de lectura de Tragedia", "4 stories",R.drawable.tragedia,"a",listaLibro) )
+        listaLectura
+            .add(Lecturas(4,"Lista de lectura de Suspenso","8 stories",R.drawable.suspenso ,"Quiero agradecer a cada una de ustedes porque a pesar de malos comentarios ustedes comentaron pequelas ccosas",listaLibro))
+        listaLectura
+            .add(Lecturas(5,"Lista de lectura de aventura","3 stories",R.drawable.aventura ,"Quiero agradecer a cada una de ustedes porque a pesar de malos comentarios ustedes comentaron pequelas ccosas",listaLibro))
+        listaLectura
+            .add(Lecturas(6,"Lista de lectura de ciencia ficción", "4 stories",R.drawable.ciencia_ficcion,"a",listaLibro) )
+        listaLectura
+            .add(Lecturas(7,"Lista de lectura de niños","1 story",R.drawable.infantil, "Quiero agradecer a cada una de ustedes porque a pesar de malos comentarios ustedes comentaron pequelas ccosas",listaLibro))
+
+        //inicializar Recycle View
+        val recyclerView =  vista.findViewById<RecyclerView>(R.id.rv_lista_lectura)
+        inicializarRecyclerView(listaLectura, recyclerView)
+        return vista
+    }
+    fun cambiar(view: View, savedInstanceState: Bundle?) {
+        /*super.onViewCreated(view, savedInstanceState)
+        view.findViewById<Button>(R.id.btn_p).setOnClickListener {
+            findNavController().navigate(R.id.action_ReadingFragment_to_LibrosFragment)
+        }*/
+
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reading_lists, container, false)
+    fun inicializarRecyclerView(
+        lista:ArrayList<Lecturas>,
+        recyclerView: RecyclerView
+    ){
+        val adaptador =LecturasAdapter(
+            this, // Contexto
+            lista, // Arreglo datos
+            recyclerView
+        )
+        recyclerView.adapter = adaptador
+        recyclerView.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
+        recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ReadingLists.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ReadingLists().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+/*
+    override fun onItemClick(libros: ArrayList<Libro>?) {
+        val intent = Intent(this, LibrosRecyclerView::class.java)
     }
+*/
+
 }

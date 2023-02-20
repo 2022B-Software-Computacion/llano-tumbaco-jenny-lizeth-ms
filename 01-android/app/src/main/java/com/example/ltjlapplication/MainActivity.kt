@@ -85,6 +85,22 @@ class MainActivity : AppCompatActivity() {
             .setOnClickListener{
                 irActividad(ECrudEntrenador::class.java)
             }
+        val botonRView = findViewById<Button>(R.id.btn_revcycler_view)
+        botonRView
+            .setOnClickListener {
+                irActividad(GRecyclerView::class.java)
+            }
+        val botonMaps = findViewById<Button>(R.id.btn_google_maps)
+        botonMaps
+            .setOnClickListener{
+                irActividad(HGoogleMapsActivity::class.java)
+            }
+
+        val botonFirebaseUI = findViewById<Button>(R.id.btn_intent_firebase_ui)
+        botonFirebaseUI
+            .setOnClickListener{
+                irActividad(IFirebaseUIAuth::class.java)
+            }
     }
 
 
@@ -105,6 +121,7 @@ class MainActivity : AppCompatActivity() {
         clase: Class<*>
     ){
         val intent = Intent(this, clase)
-        startActivity(intent)
+
+        startActivity (intent)
     }
 }

@@ -3,6 +3,7 @@ package com.example.recyclerviewlibro.adaptador
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 //import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -15,17 +16,23 @@ class RecyclerViewAdaptadorLibro (
     private val lista: ArrayList<Libro>,
     private val recyclerView: RecyclerView
 ):RecyclerView.Adapter<RecyclerViewAdaptadorLibro.MyViewHolder>(){
+
     inner class MyViewHolder(view: View):RecyclerView.ViewHolder(view){
         val tituloTextView: TextView
-        val autorTextView: TextView
-        //val resumenTextView: TextView
-        //val accionButton: Button
+        val vistaTextView: TextView
+        val estrellaTextView: TextView
+        val booksTextView: TextView
+        val resumenTextView: TextView
+        val imgBookView: ImageView
 
         init{
             tituloTextView = view.findViewById(R.id.idTitulo)
-            autorTextView = view.findViewById(R.id.idAutor)
-            //accionButton = view.findViewById<Button>(R.id.btn_menu_capitulos)
-            //accionButton.setOnClickListener{}
+            vistaTextView = view.findViewById(R.id.txt_vista)
+            estrellaTextView = view.findViewById(R.id.txt_star)
+            booksTextView = view.findViewById(R.id.txt_books)
+            resumenTextView = view.findViewById(R.id.idDescripcion)
+            imgBookView = view.findViewById(R.id.idImagenLibro)
+
         }
     }
 
@@ -51,8 +58,11 @@ class RecyclerViewAdaptadorLibro (
     ) {
         val libroActual = this.lista[position]
         holder.tituloTextView.text = libroActual.nombre
-        holder.autorTextView.text = libroActual.resumen
-        //holder.accionButton.text = ""
+        holder.vistaTextView.text = libroActual.vista
+        holder.estrellaTextView.text = libroActual.estrella
+        holder.booksTextView.text = libroActual.libros
+        holder.resumenTextView.text = libroActual.resumen
+        holder.imgBookView.setImageResource(libroActual.imgBook)
     }
 
     //tamaño del arreglo

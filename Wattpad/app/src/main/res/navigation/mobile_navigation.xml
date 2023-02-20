@@ -12,14 +12,20 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.recyclerviewlibro.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/ReadingFragment"
+        android:name="com.example.recyclerviewlibro.fragments.ReadingLists"
+        tools:layout="@layout/fragment_reading_lists">
 
+        <action
+            android:id="@+id/action_ReadingFragment_to_LibrosFragment"
+            app:destination="@id/LibrosFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.recyclerviewlibro.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/LibrosFragment"
+        android:name="com.example.recyclerviewlibro.fragments.LibrosRecyclerView"
+        tools:layout="@layout/fragment_libro">
+
+    </fragment>
+
+
 </navigation>
