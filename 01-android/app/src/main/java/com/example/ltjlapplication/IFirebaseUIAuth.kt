@@ -9,7 +9,6 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.IdpResponse
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
-import org.checkerframework.common.subtyping.qual.Bottom
 
 class IFirebaseUIAuth : AppCompatActivity() {
     private val signInLauncher=registerForActivityResult(
@@ -43,7 +42,7 @@ class IFirebaseUIAuth : AppCompatActivity() {
     fun seLogeo(
         res:IdpResponse
     ){
-        val btnLogin = findViewById<Button>(R.id.btn_login_firebase)
+        val btnLogin: Button = findViewById<Button>(R.id.btn_login_firebase)
         val btnLogout= findViewById<Button>(R.id.btn_logout_firebase)
         btnLogout.visibility = View.VISIBLE
         btnLogin.visibility=View.INVISIBLE
