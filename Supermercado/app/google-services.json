@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "353588556650",
+    "project_id": "supermercado-83447",
+    "storage_bucket": "supermercado-83447.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353588556650:android:9660349e2b1513ffd1eb13",
+        "android_client_info": {
+          "package_name": "com.example.supermercado"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "353588556650-n13hg6admk0672v46f64o0dib711gu2m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmIPOsR7PXafXy2k7ARVqLgXIYoubXlsU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "353588556650-65ffeh032ui44nf1dbjspd9l2c6ap59k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -184,6 +184,8 @@ class JFirebaseFirestore : AppCompatActivity() {
             }
     }
 
+
+
     fun consultarDocumento(
         adaptador: ArrayAdapter<JCitiesDto>
     ){
